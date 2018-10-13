@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>camera</title>
+
+    <style>
+        .booth {
+            width:400px;
+            background:#ccc;
+            border: 10px solid #ddd;
+            margin: 0 auto;
+        }
+    </style>
+
+</head>
+<body>
+
+<div id="contentHolder">
+    <video id="video" width="320" height="320" autoplay></video>
+    <button id="start" style="display:block" >start</button>
+    <button id="picture" style="display:block" >paizhao</button>
+    <canvas style="display:block" id="canvas" width="320" height="320"></canvas>
+    <button id="sc" style="display:block" >shangchuan</button>
+    <button id="stop" style="display:block" >stop</button>
+</div>
+
+<!--<div class="booth">-->
+    <!--    <video id="video" width="400" height="300"></video>-->
+    <!--    <button id='tack'> snap shot</button>-->
+    <!--    <canvas id='canvas' width='400' height='300'></canvas>-->
+    <!--    <img id='img' src=''>-->
+    <!--  </div>-->
+<!--  <script>-->
+    <!--var video = document.getElementById('video'),-->
+        <!--canvas = document.getElementById('canvas'),-->
+        <!--snap = document.getElementById('tack'),-->
+        <!--img = document.getElementById('img'),-->
+        <!--vendorUrl = window.URL || window.webkitURL;-->
+    <!--//媒体对象-->
+    <!--navigator.getMedia = navigator.getUserMedia ||-->
+        <!--navagator.webkitGetUserMedia ||-->
+        <!--navigator.mozGetUserMedia ||-->
+        <!--navigator.msGetUserMedia;-->
+    <!--navigator.getMedia({-->
+        <!--video: true, //使用摄像头对象-->
+        <!--audio: false  //不适用音频-->
+    <!--}, function(strem){-->
+        <!--console.log(strem);-->
+        <!--video.src = vendorUrl.createObjectURL(strem);-->
+        <!--video.play();-->
+    <!--}, function(error) {-->
+        <!--//error.code-->
+        <!--console.log(error);-->
+    <!--});-->
+    <!--snap.addEventListener('click', function(){-->
+        <!--//绘制canvas图形-->
+        <!--canvas.getContext('2d').drawImage(video, 0, 0, 400, 300);-->
+        <!--//把canvas图像转为img图片-->
+        <!--img.src = canvas.toDataURL("image/png");-->
+    <!--})-->
+<!--</script>-->
+
+</body>
+
+<script>
+    var mediaStreamTrack;
+    document.getElementById("start").addEventListener("click", function () {
+        navigator.getUserMedia = navigator.getUserMedia ||
+            navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia;
+        if (navigator.getUserMedia) {
+            navigator.getUserMedia({ audio: true, video: { width: 320, height: 320 } },
+                function(stream) {
+                    mediaStreamTrack = typeof stream.stop === 'function' ? stream : stream.getTracks()[1];
+                    video.src = (window.URL || window.webkitURL).createObjectURL(stream);
+                    video.play();
+                    /*  var video = document.getElementById("video");
+                     video.src = window.URL.createObjectURL(stream);
+                     video.onloadedmetadata = function(e) {
+                         console.log('nihao44eee4aaaaddda');
+                         video.play();
+                     }; */
+                },
+                function(err) {
+                    console.log("The following error occurred: " + err.name);
+                }
+            );
+        } else {
+            console.log("getUserMedia not supported");
+        }
+    });
+    document.getElementById("stop").addEventListener("click", function () {
+        mediaStreamTrack && mediaStreamTrack.stop();
+    });
+    document.getElementById("picture").addEventListener("click", function () {
+        var context = document.getElementById("canvas").getContext("2d");
+        context.drawImage(video, 0, 0, 320, 320);
+    });
+    document.getElementById("sc").addEventListener("click", function () {
+        var imgData=document.getElementById("canvas").toDataURL("image/png");
+        var mmmd=getBase64Image(document.getElementById("mmm"));
+        var data=imgData.substr(22);
+        console.log(mmmd)
+        debugger
+        $.post('recorder/target/sc',{'sj':data});
+    });
+    function getBase64Image(img) {
+        var canvastemp = document.createElement("canvas");
+        canvastemp.width = img.width;
+        canvastemp.height = img.height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+        var dataURL = canvas.toDataURL("image/png");
+        return dataURL
+        // return dataURL.replace("data:image/png;base64,", "");
+    }
+</script>
+
+
+</html>
