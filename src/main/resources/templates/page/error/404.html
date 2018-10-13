@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>404</title>
+</head>
+<body>
+<h1>F:\maven\org\springframework\boot\spring-boot-autoconfigure
+    \2.0.5.RELEASE\spring-boot-autoconfigure-2.0.5.RELEASE.jar!\
+    org\springframework\boot\autoconfigure\web\servlet\error\ErrorMvcAutoConfiguration.class</h1>//错误处理自动配置
+<div>
+    返回页面
+    1.DefaultErrorAttributes:错误信息显示<br/>
+    2.BasicErrorController -44~61:处理默认用/error<br/>
+    3.ErrorPageCustomizer -103->new ErrorMvcAutoConfiguration.registerErrorPages->getPath()-><br/>
+    4.DefaultErrorViewResolver<br/>
+    一旦系统出现4xx,5xx错误就会生效，定制错误响应规则，被BasicErrorController处理
+
+    有模板引擎的情况下在templates下的error下找，没有就在static下找
+</div>
+<hr/>
+<div>
+    <h1>看DefaultErrorAttributes的参数名</h1>
+    <h2 th:text="${timestamp}"></h2>
+    <h2 th:text="${path}"></h2>
+    <h2 th:text="${status}"></h2>
+    <h2 th:text="${error}"></h2>
+    <h2 th:text="${message}"></h2>
+</div>
+</body>
+</html>

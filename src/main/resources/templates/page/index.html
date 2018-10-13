@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+<body>
+    <h1>index</h1>
+    <div th:text="${session.user.username}" th:if="${session.user!=null}"></div>
+    <a href="#" th:href="@{/getAllUser}">allUsers</a>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>login</title>
+    </head>
+
+    <body>
+        <span th:text="${err_msg}" th:if="${not #strings.isEmpty(err_msg)}"></span>
+        <form name="login" method="post" action="#" th:action="@{/login}">
+            <input type="text" name="username">
+            <input type="text" name="password">
+            <input type="submit">
+        </form>
+        <a th:href="@{/login}">相同url不同请求方式</a>
+        <a href="#" th:href="@{/gotohtml(htmlName=register)}">注册</a><br/>
+        <input type="button" id="jstest" th:value="前端"/>
+
+
+        <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+        <script>
+            alert("123")
+        </script>
+    </body>
+</html>

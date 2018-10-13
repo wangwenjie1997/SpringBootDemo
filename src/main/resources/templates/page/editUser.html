@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>editUser</title>
+</head>
+<body>
+    <h1>edit</h1>
+    <form action="#" th:action="@{/editUser}" method="post">
+        <!--
+        1.SpringMVC中配置HiddenHttpMethodFilter（spring boot自动配置好的WebMvcAutoConfiguration -132）
+        2.创建一个post表单
+        3.创建一个input项，name="_method",值就是我们指定的请求方式,不区分大小写
+        -->
+        <input type="hidden" name="_method" value="put" />
+        <input type="hidden" name="id" th:value="${editUser.id}">
+        username:<input type="text" name="username" th:value="${editUser.username}"/><br/>
+        password:<input type="text" name="password" th:value="${editUser.password}"/><br/>
+        <input type="submit" />
+
+        <!--
+        <select>
+            <option th:each="${...}" th:text="${}"></option>
+        </select>
+        -->
+
+    </form>
+</body>
+</html>
